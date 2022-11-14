@@ -71,6 +71,9 @@ int main(int argc, char** argv) {
 
         fseek(file, offset, SEEK_SET);
         fread(buffer, sizeof(char), maxfragsize, file);
+        for (int i = 0; i < maxfragsize; i++) {
+            if (buffer[i] == '\n') buffer[i] = ' ';
+        }
         fprintf(stdout, ">%s< \n", buffer);
     }
 
