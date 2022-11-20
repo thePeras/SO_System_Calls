@@ -46,6 +46,9 @@ int main (int argc, char* argv[]){
         else{
             wait(NULL);
         }
+
+        // zip <zipname> <fiule1> <file2> ...
+        
     return EXIT_SUCCESS;
     }
 }
