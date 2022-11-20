@@ -1,54 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
+#include <string.h>
 
-#include<string.h>
+// gcc -Wall txt2epub.c -o txt2epub
 
 int main (int argc, char* argv[]){
+    printf("RUNNING\n");
     pid_t pid;
 
-    for (int i = 1; i < argc; i++){
+    for (int i = 1; i < argc; i++){ ;
 
-        char command[1024];
-        char* current_file = argv[i]; 
-        char* file_name[1024];
+        // argv[i] is the .txt file we want to convert
+        // i want a string with the name of the .epub file
+        char* epub_name = malloc(strlen(argv[i]) + 1);
+        strcpy(epub_name, argv[i]);
+        epub_name[strlen(argv[i]) - 4] = '\0';
+        strcat(epub_name, ".epub");
 
-        char pandoc[] = "pandoc "; 
-        char output[] = " -o ";
-        char epub[] = ".epub";
-
-        strcat(command, pandoc);
+        // create command: pandoc argv[i](.txt) -o epub_name(.epub)
+        char command[1024] = "pandoc ";
+        char* txt_name = malloc(strlen(argv[i]) + 1);
+        strcpy(txt_name, argv[i]);
+        strcat(command, txt_name);
+        char output[1024] = " -o ";
         strcat(command, output);
-        strncpy(file_name, current_file, strlen(current_file)-4);
-        strcat(command, epub);
+        strcat(command, epub_name);
+
+        printf(">> %s   |   ", command);
 
         if((pid = fork()) == - 1){
-            fprintf(stderr, "%s: can´t fork command: %s\n", pandoc , sterror(errno));
+            fprintf(stderr, "pandoc: can't fork command: %s\n", strerror(errno));
             continue;
         }
-
         else if(pid == 0){
-           fprintf("[pid%d] converting %s...",getpid(),current_file);
-           execlp("pandoc", command,NULL);
-           fprintf(stderr, "%s: can´t fork command: %s\n", pandoc , sterror(errno));
-           exit(EXIT_FAILURE);
-
+            printf("[pid%d] converting %s..\n",getpid(), txt_name); 
+            // execute command
+            execlp("pandoc", command, (char *)0); // this is the problem
+            fprintf(stderr, "pandoc: can't execute command: %s\n", strerror(errno));
+            continue;
         }
-
-
-
-
-
-
-
-
-
+        else{
+            wait(NULL);
+        }
+    return EXIT_SUCCESS;
     }
-
-
-
-
-
 }
 
