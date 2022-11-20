@@ -34,7 +34,7 @@ int main (int argc, char* argv[]){
             continue;
         }
         else if(pid == 0){
-            printf("[pid%d] converting %s..\n",getpid(), txt_name); 
+            printf("[pid%d] converting %s..\n", getpid(), txt_name); 
             // execute command
             execvp(arguments[0], arguments);
             fprintf(stderr, "pandoc: can't execute command: %s\n", strerror(errno));
