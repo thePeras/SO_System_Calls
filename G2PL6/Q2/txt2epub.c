@@ -39,7 +39,7 @@ int main (int argc, char* argv[]){
         char* txt_name = malloc(strlen(argv[i]) + 1);
         strcpy(txt_name, argv[i]);
 
-        // create command: txt2epub file.txt file.epub --metadata title=file
+        // create command: pandoc file.txt file.epub --metadata title=file
         char* pandoc_arguments[] = { "pandoc", txt_name, "-o", epub_name, "--metadata", title, NULL };
 
         // execute pandoc command
