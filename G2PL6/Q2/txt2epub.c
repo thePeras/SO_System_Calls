@@ -14,35 +14,42 @@ int main (int argc, char* argv[]){
     // zip_arguments = { "zip", "ebooks.epub", "file1.epub", "file1.txt", NULL }
 
     pid_t pid;
+
     char* zip_arguments[argc+2];
     zip_arguments[0] = "zip";
     zip_arguments[1] = "ebooks.zip";
     zip_arguments[argc+1] = NULL;
 
     for (int i = 1; i < argc; i++){ 
-        // argv[i] is the .txt file we want to convert
-        // i want a string with the name of the .epub file
+        // create file.epub from file.txt
         char* epub_name = malloc(strlen(argv[i]) + 1);
         strcpy(epub_name, argv[i]);
         epub_name[strlen(argv[i]) - 4] = '\0';
         strcat(epub_name, ".epub");
 
+        // create a string "title" with the content "title=" followed by name of the file, without extension
+        char* title = malloc(strlen(argv[i]) + 7);
+        strcpy(title, "title=");
+        strcat(title, argv[i]);
+        title[strlen(argv[i]) + 6] = '\0';
+
+        // add file.epub to zip command
         zip_arguments[i+1] = epub_name;
 
         char* txt_name = malloc(strlen(argv[i]) + 1);
         strcpy(txt_name, argv[i]);
 
-        // TODO: create command: pandoc txt_name(.txt) -o epub_name(.epub) 2> /dev/null
-        char* arguments[] = { "pandoc", txt_name, "-o", epub_name, NULL };
+        // create command: txt2epub file.txt file.epub --metadata title=file
+        char* pandoc_arguments[] = { "pandoc", txt_name, "-o", epub_name, "--metadata", title, NULL };
 
+        // execute pandoc command
         if((pid = fork()) == - 1){
             fprintf(stderr, "pandoc: can't fork command: %s\n", strerror(errno));
             continue;
         }
         else if(pid == 0){
             printf("[pid%d] converting %s..\n", getpid(), txt_name); 
-            // execute command
-            execvp(arguments[0], arguments);
+            execvp(pandoc_arguments[0], pandoc_arguments);
             fprintf(stderr, "pandoc: can't execute command: %s\n", strerror(errno));
             continue; 
         }
@@ -51,13 +58,13 @@ int main (int argc, char* argv[]){
         }
     }
     
+    // execute zip command
     if((pid = fork()) == - 1){
         fprintf(stderr, "zip: can't fork command: %s\n", strerror(errno));
         exit(EXIT_FAILURE);
     }
     else if(pid == 0){
         printf("[pid%d] creating ebooks.zip..\n", getpid()); 
-        // execute command
         execvp(zip_arguments[0], zip_arguments);
         fprintf(stderr, "zip: can't execute command: %s\n", strerror(errno));
         exit(EXIT_FAILURE);
