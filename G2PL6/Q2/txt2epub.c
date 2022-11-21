@@ -13,6 +13,7 @@ int main (int argc, char* argv[]){
     char* zip_arguments[argc+1];
     zip_arguments[0] = "zip";
     zip_arguments[1] = "ebooks.zip";
+    
     for (int i = 1; i < argc; i++){ 
         // argv[i] is the .txt file we want to convert
         // i want a string with the name of the .epub file
@@ -47,8 +48,8 @@ int main (int argc, char* argv[]){
         }
     }
     
-    // zip all the .epub files
-    
+    // TODO: zip all the .epub files
+
     return EXIT_SUCCESS;
 }
 
