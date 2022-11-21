@@ -32,7 +32,7 @@ int main (int argc, char* argv[]){
         char* txt_name = malloc(strlen(argv[i]) + 1);
         strcpy(txt_name, argv[i]);
 
-        // TODO: create command: pandoc txt_name(.txt) -o epub_name(.epub)
+        // TODO: create command: pandoc txt_name(.txt) -o epub_name(.epub) 2> /dev/null
         char* arguments[] = { "pandoc", txt_name, "-o", epub_name, NULL };
 
         if((pid = fork()) == - 1){
