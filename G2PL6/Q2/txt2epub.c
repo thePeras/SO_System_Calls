@@ -9,16 +9,19 @@
 // gcc -Wall txt2epub.c -o txt2epub
 
 int main (int argc, char* argv[]){
-    printf("RUNNING\n");
     pid_t pid;
+    char* zip_arguments[argc+1];
+    zip_arguments[0] = "zip";
+    zip_arguments[1] = "ebooks.zip";
     for (int i = 1; i < argc; i++){ 
-
         // argv[i] is the .txt file we want to convert
         // i want a string with the name of the .epub file
         char* epub_name = malloc(strlen(argv[i]) + 1);
         strcpy(epub_name, argv[i]);
         epub_name[strlen(argv[i]) - 4] = '\0';
         strcat(epub_name, ".epub");
+
+        zip_arguments[i+1] = epub_name;
 
         //TODO: enchament: set metadata correctly
 
@@ -28,7 +31,6 @@ int main (int argc, char* argv[]){
 
         char* arguments[1024] = {"pandoc", txt_name, "-o", epub_name, NULL };
 
-        
         if((pid = fork()) == - 1){
             fprintf(stderr, "pandoc: can't fork command: %s\n", strerror(errno));
             continue;
@@ -43,10 +45,10 @@ int main (int argc, char* argv[]){
         else{
             wait(NULL);
         }
-        
-        // TODO: zip <zipname> <fiule1> <file2> ...
-        
-    return EXIT_SUCCESS;
     }
+    
+    // zip all the .epub files
+    
+    return EXIT_SUCCESS;
 }
 
