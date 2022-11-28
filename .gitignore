@@ -1,5 +1,9 @@
 .DS_Store
 
+samples
+txt2epub
+tokenring
+
 # Prerequisites
 *.d
 
