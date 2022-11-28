@@ -1,10 +1,9 @@
-CC=gcc
-CFLAGS=-I.
-DEPS = 
-OBJ = txt2epub.o
+CC = gcc
+CFLAGS  = -g -Wall
+TARGET = txt2epub
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+all:
+	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
 
-txt2epub: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+clean:
+	$(RM) $(TARGET)
