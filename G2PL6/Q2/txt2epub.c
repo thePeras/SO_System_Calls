@@ -26,6 +26,7 @@ int main (int argc, char* argv[]){
 
         zip_arguments[i+1] = epub_name;
 
+
         char* txt_name = malloc(strlen(argv[i]) + 1);
         strcpy(txt_name, argv[i]);
 
