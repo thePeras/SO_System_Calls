@@ -7,7 +7,10 @@
 
 int main (int argc, char* argv[]){
     pid_t pid;
-
+    if (argc == 1) {
+        fprintf(stderr, "Faltam argumentos\nUsage: %s <file1.txt> [... file_n.txt] \n", argv[0]);
+        return EXIT_FAILURE;
+    }
     char* zip_arguments[argc+2];
     zip_arguments[0] = "zip";
     zip_arguments[1] = "ebooks.zip";

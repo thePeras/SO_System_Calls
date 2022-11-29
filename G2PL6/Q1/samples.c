@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
 
 static bool offset_found(int* offsets, int i, long offset) {
     for(int j=0; j<i; j++){
@@ -75,7 +76,7 @@ int main(int argc, char** argv) {
         offsets[i] = offset;
 
         if (fseek(file, offset, SEEK_SET)) {
-            fprintf(stderr, "Erro ao ir para a posição do ficheiro %d. %s\n", offset, strerror(errno));
+            fprintf(stderr, "Erro ao ir para a posição do ficheiro %ld. %s\n", offset, strerror(errno));
             return EXIT_FAILURE;
         }
         fread(buffer, sizeof(char), maxfragsize, file);
