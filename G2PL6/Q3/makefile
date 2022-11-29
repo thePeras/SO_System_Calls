@@ -1,10 +1,9 @@
-CC=gcc
-CFLAGS=-I.
-DEPS = 
-OBJ = tokenring.o
+CC = gcc
+CFLAGS  = -g -Wall
+TARGET = tokenring
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+all:
+	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
 
-tokenring: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+clean:
+	$(RM) $(TARGET)

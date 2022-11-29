@@ -1,10 +1,9 @@
-CC=gcc
-CFLAGS=-I.
-DEPS = 
-OBJ = samples.o
+CC = gcc
+CFLAGS  = -g -Wall
+TARGET = samples
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+all:
+	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
 
-samples: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+clean:
+	$(RM) $(TARGET)
