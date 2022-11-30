@@ -89,7 +89,6 @@ int main(int argc, char** argv) {
     for (int i = 1; i <= numberProc; i++) {
         char pipeName[12];
         sprintf(pipeName, "pipe%dto%d", i, mod(i, numberProc)+ 1);
-        //copy the pipe name to the array
         pipes[i-1] = malloc(strlen(pipeName) + 1);
         strcpy(pipes[i-1], pipeName);
         if (mkfifo(pipeName, 0666) == -1) {
