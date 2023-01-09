@@ -13,19 +13,17 @@
 
 ## Project Goals
 
-Develop c programs using system calls to explore how they work.
-Also, learn how to create new processes and introduce the concept of multithreading.
+Develop c programs using **system calls** to explore how they work. Also, learn how to create new processes and introduce the concept of **multithreading**.
 
 Some examples of system calls used
 
-- For file management:
+- File management:
 `open`, `close`, `write`, `read`
-- For multithreading: `fork`, `wait`, `getpid`, `mkfifo`
+- Multithreading: `fork`, `wait`, `getpid`, `mkfifo`
 
-
-## Tecnologies Used
+### Tecnologies Used
 
 <div>
-	<code><img height="50" src="https://user-images.githubusercontent.com/25181517/192106070-46255bcf-65e6-4c6b-a296-bf8d0d8fb2a7.png" alt="C" title="C" /></code>
-	<code><img height="50" src="https://user-images.githubusercontent.com/25181517/192158606-7c2ef6bd-6e04-47cf-b5bc-da2797cb5bda.png" alt="bash" title="bash" /></code>
+	<img height="40" src="https://user-images.githubusercontent.com/25181517/192106070-46255bcf-65e6-4c6b-a296-bf8d0d8fb2a7.png" alt="C" title="C" />
+	<img height="40" src="https://user-images.githubusercontent.com/25181517/192158606-7c2ef6bd-6e04-47cf-b5bc-da2797cb5bda.png" alt="bash" title="bash" />
 </div>
